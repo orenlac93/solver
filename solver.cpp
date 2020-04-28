@@ -1,5 +1,6 @@
 #include"solver.hpp"
 #include<iostream>
+#include<cmath>
 
 using namespace std;
 using namespace solver;
@@ -167,6 +168,18 @@ RealVariable solver::operator * (double num , RealVariable const & var)
 
 }
 
+RealVariable solver::operator * (RealVariable const & var , double num)
+{
+    RealVariable ans;
+    ans.b = 0;
+
+    ans.a = var.a;
+    ans.b = var.b*num;
+    ans.c = var.c;
+
+    return ans;
+}
+
 RealVariable solver::operator / (RealVariable const & var , double num)
 {
     RealVariable ans;
@@ -218,6 +231,7 @@ RealVariable solver::operator == (RealVariable const & var1 , RealVariable const
     return ans;
 
 }
+
 
 
 
@@ -423,7 +437,7 @@ ComplexVariable solver::operator == (ComplexVariable const & var , double num)
 
 
 
-
+/*
 double solver::solve(RealVariable var)
 {
     cout << "\n" << endl;
@@ -433,6 +447,53 @@ double solver::solve(RealVariable var)
     
     return 0;
 }
+*/
+
+
+
+
+
+double solver::solve(RealVariable var)
+{
+    double a , b , c , x1 , x2;
+    a = var.a;
+    b = var.b;
+    c = var.c;
+
+    // ax^2 + bx + c = 0 
+    if(a != 0)
+    {
+        if(b*b -4*a*c > 0) // two solutions
+        {
+            x1 = (-b + sqrt(b*b -4*a*c))/(2*a);
+            x2 = (-b - sqrt(b*b -4*a*c))/(2*a);
+
+            return x1;
+        }
+        else if(b*b -4*a*c == 0) // one solution
+        {
+
+            x1 = (-b + sqrt(b*b -4*a*c))/(2*a);
+            x2 = x1;
+
+            return x1;
+        }
+        else // complex solution
+        {
+            throw std::invalid_argument("There is no real solution\n");
+        }
+    }
+    // bx + c = 0 
+    else
+    {
+        x1 = c/(-b);
+        return x1;
+    }
+    
+}
+
+
+
 
 std::complex<double> solver::solve(ComplexVariable var)
 {

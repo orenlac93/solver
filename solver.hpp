@@ -38,7 +38,9 @@ namespace solver
         /* x ^ n */  
         friend RealVariable operator ^ (RealVariable const & var , int pow);
         /* n * x */    
-        friend RealVariable operator * (double num , RealVariable const & var); 
+        friend RealVariable operator * (double num , RealVariable const & var);
+        /* x * n */    
+        friend RealVariable operator * (RealVariable const & var , double num);  
         /* x / n */
         friend RealVariable operator / (RealVariable const & var , double num); 
         /* x == n */
