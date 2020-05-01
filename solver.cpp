@@ -311,7 +311,7 @@ ComplexVariable solver::operator + (ComplexVariable const & var , double num)
 ComplexVariable solver::operator - (ComplexVariable const & var , double num)
 {
     ComplexVariable ans;
-    ans.b = 0;
+    ans.b = 0.0 + 0.0i;
 
     ans.a = var.a;
     ans.b = var.b;
@@ -436,7 +436,7 @@ ComplexVariable solver::operator == (ComplexVariable const & var , double num)
 }
 
 
-
+//debug
 /*
 double solver::solve(RealVariable var)
 {
@@ -493,8 +493,8 @@ double solver::solve(RealVariable var)
 }
 
 
-
-
+// debug
+/*
 std::complex<double> solver::solve(ComplexVariable var)
 {
     cout << "\n" << endl;
@@ -503,6 +503,31 @@ std::complex<double> solver::solve(ComplexVariable var)
     cout << "c = " << var.c.real() << " + " << var.c.imag() << "i" << endl;
 
     return 0i;
+}
+*/
+
+std::complex<double> solver::solve(ComplexVariable var)
+{
+    std::complex<double> a , b , c , x1 , x2;
+    a = var.a;
+    b = var.b;
+    c = var.c;
+
+    // (a+bi)x^2 + (a+bi)x + (a+bi) = 0 
+    if(a != 0.0 + 0.0i)
+    {
+        x1 = (-b + sqrt(b*b -4.0*a*c))/(2.0*a);
+        x2 = (-b - sqrt(b*b -4.0*a*c))/(2.0*a);
+
+        return x1;
+    }
+    // (a+bi)x + (a+bi) = 0 
+    else
+    {
+        x1 = c/(-b);
+        return x1;
+    }
+
 }
 
 

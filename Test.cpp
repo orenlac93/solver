@@ -30,6 +30,14 @@ TEST_CASE("simple tests")
 
 }
 
+TEST_CASE("complex tests")
+{
+    ComplexVariable y;
+
+    CHECK(solve(2*y-4 == 10) == 7.0 + 0.0i);
+    CHECK(solve((y^2)+1 == 0) == 1i);
+}
+
 TEST_CASE("another tests")
 {
     RealVariable x;
